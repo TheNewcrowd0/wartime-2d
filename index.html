@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>War-time 2D: Commander Edition</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="hud">
+    <span>🔵 Blue HQ: <b id="ally-hq">10000</b></span>
+    <span>❤️ You: <b id="hp">160</b></span>
+    <span>💰 Gold: <b id="gold">110</b></span>
+    <span>👥 Troops: <b id="pop">0/90</b></span>
+    <span>💀 Kills: <b id="kills">0</b></span>
+    <span>🚩 Flags: <b id="flags">0 / 5</b></span>
+    <span style="cursor:pointer" onclick="cycleOrder()" title="Click or press F">📢 Order [F]: <b id="order">CHARGE</b></span>
+    <span>🔴 Red HQ: <b id="enemy-hq">10000</b></span>
+    <button class="pause-btn" onclick="toggleHelp()">📖 [H]</button>
+    <button class="pause-btn" id="mute-btn" onclick="toggleMute()">🔊</button>
+    <button class="pause-btn" onclick="togglePause()">⏸️ [P]</button>
+  </div>
+
+  <div class="game-wrap">
+    <canvas id="battlefield" width="860" height="500"></canvas>
+
+    <div id="title-screen" class="overlay">
+      <h1>War-time 2D: Vehicles & Fortresses</h1>
+      <p>Select Battlefield Layout:</p>
+      <div class="diff-row">
+        <button id="b-forest" onclick="setBiome('forest')">🌲 Forest Valley</button>
+        <button id="b-desert" onclick="setBiome('desert')" style="background:#334155">🏜️ Desert Fortress</button>
+        <button id="b-island" onclick="setBiome('island')" style="background:#334155">🏝️ Island Bridges</button>
+      </div>
+      <p>Select Difficulty:</p>
+      <div class="diff-row">
+        <button onclick="startGame(0.85)">🟢 Normal</button>
+        <button onclick="startGame(1.05)">🟡 Hard</button>
+        <button onclick="startGame(1.3)">🔴 Nightmare</button>
+      </div>
+      <div class="guide">
+        <b>WASD:</b> Drive &nbsp;|&nbsp; <b>Mouse:</b> Shoot &nbsp;|&nbsp; <b>Z:</b> Board/Exit Vehicle &nbsp;|&nbsp; <b>X:</b> Smoke &nbsp;|&nbsp; <b>B:</b> Wall &nbsp;|&nbsp; <b>G:</b> Mine &nbsp;|&nbsp; <b>R:</b> Repair<br>
+        <b>Q:</b> Squad &nbsp;|&nbsp; <b>E:</b> Tank &nbsp;|&nbsp; <b>J:</b> Jeep &nbsp;|&nbsp; <b>K:</b> Artillery &nbsp;|&nbsp; <b>M:</b> Medic &nbsp;|&nbsp; <b>N:</b> Sniper &nbsp;|&nbsp; <b>C:</b> Builder &nbsp;|&nbsp; <b>V:</b> Recon &nbsp;|&nbsp; <b>F:</b> Orders
+      </div>
+    </div>
+
+    <div id="pause-screen" class="overlay hidden">
+      <h1>⏸️ GAME PAUSED</h1>
+      <button onclick="togglePause()">▶️ Resume Battle [P]</button>
+      <button onclick="location.reload()">🔄 Quit to Title Screen</button>
+    </div>
+
+    <div id="help-screen" class="overlay hidden">
+      <h2>📖 COMMANDER FIELD MANUAL [H]</h2>
+      <div class="guide" style="text-align:left; max-width:680px; color:#e2e8f0;">
+        <b>🚙 Drive Vehicles [Z]:</b> Walk next to any allied <b>Tank</b>, <b>Jeep</b>, or <b>Artillery Truck</b> and press <b>[Z]</b> to hop in and control its weapons!<br>
+        <b>🏢 Giant Buildings:</b> Drive inside big Barracks/Depots for <b>-50% DMG</b>, automatic healing, and free bonus troops.<br>
+        <b>📢 Orders [F]:</b> <b>CHARGE</b>, <b>FOLLOW</b>, <b>HOLD</b>, <b>FLANK</b>, <b>FOCUS_HQ</b>, <b>RETREAT</b>.<br>
+        <b>⭐ Veterans:</b> Kills promote units up to <b>⭐⭐⭐</b> (+20% DMG & +15% HP per star).
+      </div>
+      <button onclick="toggleHelp()">✅ Back to Battle [H]</button>
+    </div>
+  </div>
+
+  <div class="shop">
+    <button onclick="toggleVehicle()">[Z] Board/Exit</button>
+    <button onclick="spawnSquad()">[Q] Squad (35g)</button>
+    <button onclick="buyHeavy()">[E] Tank (60g)</button>
+    <button onclick="buyJeep()">[J] Jeep (55g)</button>
+    <button onclick="buyArtillery()">[K] Artillery (85g)</button>
+    <button onclick="buyMedic()">[M] Medic (45g)</button>
+    <button onclick="buySniper()">[N] Sniper (50g)</button>
+    <button onclick="buyBuilder()">[C] Builder (40g)</button>
+    <button onclick="buyRecon()">[V] Recon (30g)</button>
+    <button onclick="deploySmoke()">[X] Smoke (15g)</button>
+    <button onclick="buildWall()">[B] Wall (25g)</button>
+    <button onclick="placeMine()">[G] Mine (20g)</button>
+    <button onclick="repairNear()">[R] Repair (15g)</button>
+    <button onclick="buyWeapon()"> Gun Lv.<b id="gun-lv">1</b></button>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
